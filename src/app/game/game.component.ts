@@ -14,7 +14,8 @@ export class GameComponent implements OnInit {
   game!: Game;
   pickCard = false;
   drawedCard = false;
-  newCard:string | undefined = '';
+  newCard: string | undefined = '';
+  stackedCard: string | undefined = '';
 
   constructor() {
 
@@ -36,13 +37,17 @@ export class GameComponent implements OnInit {
   }
 
 
-
   /**
    * This Function 
    */
   drawCard() {
-    this.newCard = this.game.cardStack.pop();
-    this.pickCard = true;
-    console.log(this.game.cardStack);
+    if (!this.pickCard) {
+      this.newCard = this.game.cardStack.pop();
+      this.pickCard = true;
+      setTimeout(() => {
+        this.pickCard = false;
+        this.newCard ? this.game.discardPile.push(this.newCard) : this.newCard
+      }, 1500);
+    }
   }
 }

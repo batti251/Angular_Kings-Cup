@@ -1,15 +1,32 @@
 <div class="playground">
-
-    <div  class="card-deck" >
-        @for (card of [1,2,3,4,5]; track $index) {
-            <div [ngStyle]="{'left.px': $index * 1}" class="cards">
-                <img src="/assets/img/cards/card_cover.png" alt="">
-            </div>
-        }
-            <img  (click)="drawCard()"  class="cards" src="/assets/img/cards/card_cover.png" alt="">
-           
-            <img class="cards pick-card" *ngIf="pickCard" src="/assets/img/cards/{{ newCard }}.png" alt="">
-
+  <div class="card-deck">
+    @for (card of [1,2,3,4,5]; track $index) {
+    <div [ngStyle]="{ 'right.px': $index * 2 }" class="cards">
+      <img src="/assets/img/cards/card_cover.png" alt="" />
     </div>
+    }
+    
+    <img
+      (click)="drawCard()"
+      class="cards"
+      src="/assets/img/cards/card_cover.png"
+      alt=""
+    />
+
+    @for (card of game.discardPile; track card) {
+    <img
+      class="cards played-card"
+      src="/assets/img/cards/{{ card }}.png"
+      alt=""
+    />
+    }
+    
+    <img
+      class="cards pick-card"
+      *ngIf="pickCard"
+      src="/assets/img/cards/{{ newCard }}.png"
+      alt=""
+    />
+  </div>
 
 </div>
