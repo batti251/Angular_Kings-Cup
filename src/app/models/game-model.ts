@@ -1,5 +1,6 @@
 export class Game {
     public cardStack: string[] = [];
+    public discardPile: string[] = [];
     public playerAmount: number[] = [];
     public playerCard: string[] = [];
     public currentPlayer: number = 0;
@@ -16,9 +17,9 @@ export class Game {
     addCardStack() {
         for (let index = 1; index < 14; index++) {
             this.cardStack.push('ace_' + index);
-            this.cardStack.push('clubs' + index);
-            this.cardStack.push('diamonds' + index);
-            this.cardStack.push('hearts' + index);
+            this.cardStack.push('clubs_' + index);
+            this.cardStack.push('diamonds_' + index);
+            this.cardStack.push('hearts_' + index);
         }
         this.shuffle(this.cardStack)
     }
@@ -36,5 +37,6 @@ export class Game {
         }
         return array;
     };
+
 
 }

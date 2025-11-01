@@ -1,6 +1,41 @@
-@import '../../styles.scss';
+@import "../../styles.scss";
 
-.playground{
-    background-image: url('../../assets/img/background.jpg');
-    @include sizeStyle($h: 100vh, $w: 100vw);
+.playground {
+  background-image: url("../../assets/img/background.jpg");
+  @include sizeStyle($h: 100vh, $w: 100vw);
+
+  .card-deck {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    .cards {
+      position: absolute;
+    }
+  }
 }
+
+.pick-card {
+  transition: all 125ms ease-in-out;
+  animation: drawAnimation 1.5s ease-in-out;
+  transform: translate(120px, -100px);
+}
+
+@keyframes drawAnimation {
+  0% {
+    transform: scale(1);
+  }
+
+  30%{
+    transform: scale(1.5);
+     rotate: (-25deg);
+  }
+
+
+  100% {
+    transform: scale(1);
+    transform: translate(120px, -100px);
+  }
+}
+
