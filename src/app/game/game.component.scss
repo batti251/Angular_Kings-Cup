@@ -1,0 +1,6 @@
+@import '../../styles.scss';
+
+.playground{
+    background-image: url('../../assets/img/background.jpg');
+    @include sizeStyle($h: 100vh, $w: 100vw);
+}
