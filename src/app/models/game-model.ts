@@ -16,7 +16,7 @@ export class Game {
      */
     addCardStack() {
         for (let index = 1; index < 14; index++) {
-            this.cardStack.push('ace_' + index);
+            this.cardStack.push('spades_' + index);
             this.cardStack.push('clubs_' + index);
             this.cardStack.push('diamonds_' + index);
             this.cardStack.push('hearts_' + index);

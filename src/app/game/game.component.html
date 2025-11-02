@@ -27,7 +27,7 @@
     @for (card of game.discardPile; track card) {
     <img
       class="cards played-card"
-      src="/assets/img/cards/{{ card }}.png"
+      src="/assets/img/cards/{{ card }}.svg"
       alt=""
     />
     }
@@ -35,7 +35,7 @@
     <img
       class="cards pick-card"
       *ngIf="pickCard"
-      src="/assets/img/cards/{{ newCard }}.png"
+      src="/assets/img/cards/{{ newCard }}.svg"
       alt=""
     />
   </div>
