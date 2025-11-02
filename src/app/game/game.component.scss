@@ -57,3 +57,10 @@ button{
   position: absolute;
   height: 64px;
 }
+
+
+.card-info{
+  @include dFlex();
+  max-width: 100%;
+  width: 90%;
+}

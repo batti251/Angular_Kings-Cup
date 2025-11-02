@@ -1,4 +1,7 @@
-<mat-card  class="card">
+@if (title) {
+    <mat-card class="card">
     <mat-card-title>{{ title }} </mat-card-title>
   <mat-card-content>{{ description}}</mat-card-content>
 </mat-card>
+}
+

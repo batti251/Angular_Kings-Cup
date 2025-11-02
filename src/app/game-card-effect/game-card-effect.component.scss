@@ -1,7 +1,13 @@
 .card{
     position: absolute;
-    bottom: 0;
-    left: 100px;
-    right: 100px;
-    
+    bottom: 16px;
+    width: 380px;
+    height: 136px;
+    background-color: whitesmoke;
+    color: black;
+    font-size: larger;
+    display: flex;
+    justify-content: center;
+    border-radius: 0.5rem;
+    padding: 8px;
 }

@@ -10,6 +10,8 @@ import { log } from 'node:console';
   styleUrl: './game-card-effect.component.scss'
 })
 export class GameCardEffectComponent implements OnInit, OnChanges{
+  @Input() card!: string | undefined;
+  @Input() info!: string;
 
    cardAction = [
     { title: 'Waterfall', description: 'Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.' },
@@ -20,9 +22,9 @@ export class GameCardEffectComponent implements OnInit, OnChanges{
     { title: 'Chicks', description: 'All girls drink.' },
     { title: 'Heaven', description: 'Put your hands up! The last player drinks!' },
     { title: 'Mate', description: 'Pick a mate. Your mate must always drink when you drink and the other way around.' },
-    { title: 'Thumbmaster', description: '' },
+    { title: 'Thumbmaster', description: `You are now the Thumbmaster!` },
     { title: 'Men', description: 'All men drink.' },
-    { title: 'Quizmaster', description: '' },
+    { title: 'Questionmaster', description: 'You are now the Questionmaster!' },
     { title: 'Never have i ever...', description: 'Say something you never did. Everyone who did it has to drink.' },
     { title: 'Rule', description: 'Make a rule. Everyone needs to drink when he breaks the rule.' },
   ];
@@ -30,24 +32,22 @@ export class GameCardEffectComponent implements OnInit, OnChanges{
   title = '';
   description = '';
 
-  @Input() card!: string | undefined;
-  @Input() info!: string;
+
 
   constructor(){
   }
 
   
   ngOnInit(): void {
-    console.log(this.cardAction);
 
   }
   
+
   ngOnChanges(): void {
-    console.log(this.card);
-    console.log();
     let cardNumber = this.card ? +this.card?.split('_')[1] :0;
-    this.title = this.cardAction[cardNumber -1].title;
-    this.description = this.cardAction[cardNumber -1].description;
+    this.title = cardNumber? this.cardAction[cardNumber -1].title  : "";
+    this.description = cardNumber? this.cardAction[cardNumber -1].description  : "";
+    
   }
   
 }
