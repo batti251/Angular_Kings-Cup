@@ -1,8 +1,13 @@
-  @for (item of game.players; track $index) {
-    <app-player class="player-list" [name]="item"  [ngStyle]="{'top.px': 80 * ($index +1) , 'right.px': 0}">
-    </app-player>
+@for (item of game.players; track $index) {
+<app-player
+  class="player-list"
+  [playerActive]="$index == game.currentPlayer"
+  [name]="item"
+  [ngStyle]="{ 'top.px': 80 * ($index + 1), 'right.px': 0 }"
+>
+</app-player>
 
-  }
+}
 
 <div class="playground">
   <div class="card-deck">
@@ -11,7 +16,7 @@
       <img src="/assets/img/cards/card_cover.png" alt="" />
     </div>
     }
-    
+
     <img
       (click)="drawCard()"
       class="cards"
@@ -26,7 +31,7 @@
       alt=""
     />
     }
-    
+
     <img
       class="cards pick-card"
       *ngIf="pickCard"
@@ -34,10 +39,18 @@
       alt=""
     />
   </div>
-
 </div>
 
-<button mat-fab color="primary" (click)="openDialog()" aria-label="Example icon button with a delete icon">
-          <mat-icon>add</mat-icon>
+
+<app-game-card-effect [card]="newCard"></app-game-card-effect>
+
+
+<button
+  mat-fab
+  color="primary"
+  (click)="openDialog()"
+  aria-label="Example icon button with a delete icon"
+>
+  <mat-icon>add</mat-icon>
 </button>
 

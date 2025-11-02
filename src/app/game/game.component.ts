@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { GameCardEffectComponent } from '../game-card-effect/game-card-effect.component';
 import {
   MatDialog,
   MAT_DIALOG_DATA,
@@ -19,11 +20,12 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
+import { log } from 'node:console';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatButtonModule, PlayerComponent, MatIconModule, MatDividerModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+  imports: [CommonModule, MatDialogModule, MatButtonModule, PlayerComponent, MatIconModule, MatDividerModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, GameCardEffectComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })
@@ -43,7 +45,7 @@ export class GameComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((name: string) => {
       if (!name) {
-      } else {this.game.players.push(name);}
+      } else { this.game.players.push(name); }
     });
   }
 
@@ -74,6 +76,8 @@ export class GameComponent implements OnInit {
       setTimeout(() => {
         this.pickCard = false;
         this.newCard ? this.game.discardPile.push(this.newCard) : this.newCard
+        this.game.currentPlayer++;
+        this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
       }, 1500);
     }
   }
