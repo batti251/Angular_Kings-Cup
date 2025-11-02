@@ -1,3 +1,9 @@
+  @for (item of game.players; track $index) {
+    <app-player class="player-list" [name]="item"  [ngStyle]="{'top.px': 80 * ($index +1) , 'right.px': 0}">
+    </app-player>
+
+  }
+
 <div class="playground">
   <div class="card-deck">
     @for (card of [1,2,3,4,5]; track $index) {
@@ -30,3 +36,8 @@
   </div>
 
 </div>
+
+<button mat-fab color="primary" (click)="openDialog()" aria-label="Example icon button with a delete icon">
+          <mat-icon>add</mat-icon>
+</button>
+

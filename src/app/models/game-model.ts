@@ -1,7 +1,7 @@
 export class Game {
     public cardStack: string[] = [];
     public discardPile: string[] = [];
-    public playerAmount: number[] = [];
+    public players: string[] = ['Player1', 'Player2', 'Player3'];
     public playerCard: string[] = [];
     public currentPlayer: number = 0;
 

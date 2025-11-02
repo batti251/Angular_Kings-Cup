@@ -1,0 +1,16 @@
+.player-tag{
+    width: 320px;
+    height: 64px;
+    background-color: rgb(135, 146, 143);
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    color: whitesmoke;
+    display: flex;
+    align-items: center;
+    gap: 16px;  
+    font-size: x-large;
+
+    img {
+        height: 32px
+    };
+}

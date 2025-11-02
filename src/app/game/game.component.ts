@@ -1,12 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Game } from '../models/game-model';
-import { log } from 'node:console';
+import { PlayerComponent } from '../player/player.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatDialogModule, MatButtonModule, PlayerComponent, MatIconModule, MatDividerModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })
@@ -16,10 +33,20 @@ export class GameComponent implements OnInit {
   drawedCard = false;
   newCard: string | undefined = '';
   stackedCard: string | undefined = '';
-
-  constructor() {
+  constructor(public dialog: MatDialog) {
 
   }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogAddPlayerComponent, {
+    });
+
+    dialogRef.afterClosed().subscribe((name: string) => {
+      if (!name) {
+      } else {this.game.players.push(name);}
+    });
+  }
+
 
   /**
    * Angular method that is called after the component was initialized
