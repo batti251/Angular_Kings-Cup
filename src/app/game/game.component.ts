@@ -20,7 +20,6 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
-import { log } from 'node:console';
 
 @Component({
   selector: 'app-game',
