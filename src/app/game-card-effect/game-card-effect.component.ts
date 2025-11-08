@@ -13,15 +13,11 @@ import { CardEffectsService } from '../service/card-effects.service';
 export class GameCardEffectComponent implements OnInit, OnChanges{
   @Input() card!: string | undefined;
   @Input() info!: string;
-  
+
   effects = inject(CardEffectsService)
 
-
-  title = '';
-  description = '';
-
-
-
+  title = ''
+  description = ''
   constructor(){
   }
 
@@ -33,8 +29,12 @@ export class GameCardEffectComponent implements OnInit, OnChanges{
 
   ngOnChanges(): void {
     let cardNumber = this.card ? +this.card?.split('_')[1] :0;
-    this.title = cardNumber? this.effects.cardAction[cardNumber -1].title  : "";
-    this.description = cardNumber? this.effects.cardAction[cardNumber -1].description  : "";
+    let cardIndex = cardNumber -1
+    if(cardNumber){
+      let effectObj = this.effects.showCardEffect(cardIndex)
+      this.title = effectObj.title
+      this.description = effectObj.description
+    }
     
   }
   

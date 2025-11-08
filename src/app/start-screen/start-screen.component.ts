@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -11,10 +11,12 @@ import { Router } from '@angular/router';
 })
 export class StartScreenComponent implements OnInit {
 
-    constructor(private router: Router){}
+    constructor(private router: Router){
+    }
 
     
   ngOnInit():void{
+    
   }
 
 

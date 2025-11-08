@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Game } from '../models/game-model';
 import { PlayerComponent } from '../player/player.component';
@@ -20,6 +20,10 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
+import { CardEffectsService } from '../service/card-effects.service';
+import {  Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { StartGameService } from '../service/start-game.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -34,8 +38,14 @@ export class GameComponent implements OnInit {
   drawedCard = false;
   newCard: string | undefined = '';
   stackedCard: string | undefined = '';
-  constructor(public dialog: MatDialog) {
+  prepareGame = inject(StartGameService);
 
+
+  constructor(public dialog: MatDialog, private router: Router) {
+              this.prepareGame.getGameRef()
+          collectionData(this.prepareGame.items$).subscribe(game => {
+            console.log(game)
+          })
   }
 
   openDialog(): void {
@@ -55,6 +65,7 @@ export class GameComponent implements OnInit {
    */
   ngOnInit(): void {
     this.newGame();
+    //this.prepareGame.getGameRef().add({'HAllo': 'Welt'})
   }
 
   /**
@@ -62,6 +73,8 @@ export class GameComponent implements OnInit {
    */
   newGame() {
     this.game = new Game()
+
+
   }
 
 

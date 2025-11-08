@@ -1,13 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardEffectsService {
 
-  constructor() { }
+  title = ''
+  description = ''
+  obj = {}
 
-    
+
+constructor() {
+   }
    cardAction = [
     { title: 'Waterfall', description: 'Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.' },
     { title: 'You', description: 'You decide who drinks' },
@@ -23,5 +28,13 @@ export class CardEffectsService {
     { title: 'Never have i ever...', description: 'Say something you never did. Everyone who did it has to drink.' },
     { title: 'Rule', description: 'Make a rule. Everyone needs to drink when he breaks the rule.' },
   ];
+
+  showCardEffect(index:number){
+    return {
+      title : this.cardAction[index].title,
+      description : this.cardAction[index].description,
+    }
+  }
+
 
 }
