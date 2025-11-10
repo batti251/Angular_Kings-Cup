@@ -52,14 +52,19 @@ export class GameComponent{
   drawCard() {
    if (!this.pickCard) {
      this.newCard = this.game.cardStack.pop();
-     this.prepareGame.deleteDrawedCardFromCardStackFirebase(this.newCard!)
+    // this.prepareGame.deleteDrawedCardFromCardStackFirebase(this.newCard!)
      this.pickCard = true;
      setTimeout(() => {
        this.pickCard = false;
-       this.newCard ? this.prepareGame.addDrawedCardToDiscardPileFirebase(this.newCard) : this.newCard
-       this.game.currentPlayer++;
-       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+      // this.newCard ? this.prepareGame.addDrawedCardToDiscardPileFirebase(this.newCard) : this.newCard
+      this.nextPlayersTurn()
      }, 1500);
    }
+  }
+
+  nextPlayersTurn(){
+       this.game.currentPlayer++;
+       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+       this.prepareGame.nextPlayersTurn(this.game.currentPlayer)
   }
 }

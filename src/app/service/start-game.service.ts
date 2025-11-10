@@ -50,6 +50,12 @@ export class StartGameService {
     })
   }
 
+  async nextPlayersTurn(nextPlayer:number){
+    await updateDoc(this.getDocRef("games", 'cJsSBX35kU51b1StZniN'), {
+      'newGame.currentPlayer': nextPlayer
+    })
+  }
+
   /**
    * Angular method that is called after the component was initialized
    * It starts a new Game
