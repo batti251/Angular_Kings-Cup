@@ -1,7 +1,7 @@
-@for (item of game.players; track $index) {
+@for (item of prepareGame.game.players; track $index) {
 <app-player
   class="player-list"
-  [playerActive]="$index == game.currentPlayer"
+  [playerActive]="$index == prepareGame.game.currentPlayer"
   [name]="item"
   [ngStyle]="{ 'top.px': 80 * ($index + 1), 'right.px': 0 }"
 >
@@ -24,7 +24,7 @@
       alt=""
     />
 
-    @for (card of game.discardPile; track card) {
+    @for (card of prepareGame.game.discardPile; track card) {
     <img
       class="cards played-card"
       src="/assets/img/cards/{{ card }}.svg"
@@ -44,13 +44,4 @@
 
 <app-game-card-effect class="card-info" [card]="newCard"></app-game-card-effect>
 
-
-<button
-  mat-fab
-  color="primary"
-  (click)="openDialog()"
-  aria-label="Example icon button with a delete icon"
->
-  <mat-icon>add</mat-icon>
-</button>
 

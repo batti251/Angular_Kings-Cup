@@ -2,7 +2,7 @@
 /notes.txt
 /up.bat
 /server.ts
-
+src/app/app.config.ts
 
 # Compiled output
 /dist
