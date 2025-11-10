@@ -38,10 +38,15 @@ export class StartGameService {
     await this.newGame()
   }
 
-  async deleteDrawedCardFromFirebase(drawedCard:string){
+  async deleteDrawedCardFromCardStackFirebase(drawedCard:string){
     await updateDoc(this.getDocRef("games", 'cJsSBX35kU51b1StZniN') , {
       'newGame.cardStack': arrayRemove(drawedCard)
+    })
+  }
 
+  async addDrawedCardToDiscardPileFirebase(drawedCard:string){
+     await updateDoc(this.getDocRef("games", 'cJsSBX35kU51b1StZniN'), {
+      'newGame.discardPile': arrayUnion(drawedCard)
     })
   }
 

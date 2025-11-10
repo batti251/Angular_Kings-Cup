@@ -1,12 +1,11 @@
-@for (item of prepareGame.game.players; track $index) {
+@for (item of game.players; track $index) {
 <app-player
   class="player-list"
-  [playerActive]="$index == prepareGame.game.currentPlayer"
+  [playerActive]="$index == game.currentPlayer"
   [name]="item"
   [ngStyle]="{ 'top.px': 80 * ($index + 1), 'right.px': 0 }"
 >
 </app-player>
-
 }
 
 <div class="playground">
@@ -24,7 +23,7 @@
       alt=""
     />
 
-    @for (card of prepareGame.game.discardPile; track card) {
+    @for (card of game.discardPile; track card) {
     <img
       class="cards played-card"
       src="/assets/img/cards/{{ card }}.svg"
