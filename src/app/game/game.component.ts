@@ -25,9 +25,11 @@ export class GameComponent{
 
 
   constructor(private router: Router) {
-              this.prepareGame.getGameRef()
-          collectionData(this.prepareGame.items$).subscribe(game => {
-            console.log(game)
+          this.prepareGame.getGameRef()
+          collectionData(this.prepareGame.getGameRef()).subscribe(game => {
+            this.game = game[0]['newGame']
+            
+
           })
   }
 
@@ -35,6 +37,7 @@ export class GameComponent{
  
   ngOnInit(): void {
     this.prepareGame.newGame();
+    
     //this.prepareGame.getGameRef().add({'HAllo': 'Welt'})
   }
 /* 
@@ -47,17 +50,16 @@ export class GameComponent{
    * This Function 
    */
   drawCard() {
-    console.log(this.prepareGame.game);
-    
-    if (!this.pickCard) {
-      this.newCard = this.prepareGame.game.cardStack.pop();
-      this.pickCard = true;
-      setTimeout(() => {
-        this.pickCard = false;
-        this.newCard ? this.prepareGame.game.discardPile.push(this.newCard) : this.newCard
-        this.prepareGame.game.currentPlayer++;
-        this.prepareGame.game.currentPlayer = this.prepareGame.game.currentPlayer % this.prepareGame.game.players.length;
-      }, 1500);
-    }
+   if (!this.pickCard) {
+     this.newCard = this.game.cardStack.pop();
+     this.prepareGame.deleteDrawedCardFromFirebase(this.newCard!)
+     this.pickCard = true;
+     setTimeout(() => {
+       this.pickCard = false;
+       this.newCard ? this.prepareGame.game.discardPile.push(this.newCard) : this.newCard
+       this.prepareGame.game.currentPlayer++;
+       this.prepareGame.game.currentPlayer = this.prepareGame.game.currentPlayer % this.prepareGame.game.players.length;
+     }, 1500);
+   }
   }
 }
