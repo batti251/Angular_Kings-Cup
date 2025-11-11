@@ -1,70 +1,63 @@
-import { Component, OnInit,  inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Game } from '../models/game-model';
 import { PlayerComponent } from '../player/player.component';
 import { GameCardEffectComponent } from '../game-card-effect/game-card-effect.component';
 import { CardEffectsService } from '../service/card-effects.service';
-import {  Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { Firestore, collectionData, collection, docData, doc } from '@angular/fire/firestore';
 import { StartGameService } from '../service/start-game.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { log } from 'node:console';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule,PlayerComponent, GameCardEffectComponent],
+  imports: [CommonModule, PlayerComponent, GameCardEffectComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })
-export class GameComponent{
-  game!: Game;
+export class GameComponent implements OnInit {
   pickCard = false;
   drawedCard = false;
   newCard: string | undefined = '';
   stackedCard: string | undefined = '';
   prepareGame = inject(StartGameService);
+  gameID: any;
+  game!: any
 
 
-  constructor(private router: Router) {
-          this.prepareGame.getGameRef()
-          collectionData(this.prepareGame.getGameRef()).subscribe(game => {
-            this.game = game[0]['newGame']
-            
+  constructor(private route: ActivatedRoute, private router: Router) {
 
-          })
   }
 
 
- 
-  ngOnInit(): void {
-    this.prepareGame.newGame();
-    
-    //this.prepareGame.getGameRef().add({'HAllo': 'Welt'})
+  async ngOnInit() {
+     this.route.params.subscribe((params) => {
+      this.gameID = params['id']
+      let docRef = this.prepareGame.getDocRef("games", this.gameID)
+      docData(docRef).subscribe( game => {
+      this.game = game
+      })
+    });
   }
-/* 
-  newGame() {
-    this.game = new Game()
-  } */
 
 
-  /**
-   * This Function 
-   */
   drawCard() {
-   if (!this.pickCard) {
-     this.newCard = this.game.cardStack.pop();
-    // this.prepareGame.deleteDrawedCardFromCardStackFirebase(this.newCard!)
-     this.pickCard = true;
-     setTimeout(() => {
-       this.pickCard = false;
-      // this.newCard ? this.prepareGame.addDrawedCardToDiscardPileFirebase(this.newCard) : this.newCard
-      this.nextPlayersTurn()
-     }, 1500);
-   }
+    if (!this.pickCard) {
+      this.newCard = this.game.cardStack.pop();
+      this.prepareGame.deleteDrawedCardFromCardStackFirebase(this.newCard!, this.gameID)
+      this.pickCard = true;
+      setTimeout(() => {
+        this.pickCard = false;
+        this.newCard ? this.prepareGame.addDrawedCardToDiscardPileFirebase(this.newCard, this.gameID) : this.newCard
+        this.nextPlayersTurn()
+      }, 1500);
+    }
   }
 
-  nextPlayersTurn(){
-       this.game.currentPlayer++;
-       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
-       this.prepareGame.nextPlayersTurn(this.game.currentPlayer)
+  nextPlayersTurn() {
+    this.game.currentPlayer++;
+    this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+    this.prepareGame.nextPlayersTurn(this.game.currentPlayer, this.gameID)
   }
 }

@@ -2,8 +2,9 @@ import { Component, Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { Firestore, collectionData, collection, doc, addDoc, updateDoc, arrayUnion, arrayRemove } from '@angular/fire/firestore';
-import { log } from 'node:console';
 import { Game } from '../models/game-model';
+import { Router} from '@angular/router';
+import { take } from 'rxjs';
 
 
 @Injectable({
@@ -14,64 +15,66 @@ export class StartGameService {
   firestore: Firestore = inject(Firestore);
   items$;
   game!: Game;
+  newGame: any;
 
-
-
-  constructor() {
+  constructor(private router: Router) {
     this.items$ = this.getGameRef()
-    collectionData(this.items$).subscribe(game => {
+  }
+
+  getCurrentPlayers(name: string) {
+    collectionData(this.items$, { idField: 'id' }).pipe(take(1)).subscribe(game => {
+    let filteredArray: any
+        filteredArray = game.filter(room => {return room['players'].length < 4})
+      if (filteredArray.length >0 ) {
+        this.addPlayerToGame(name, filteredArray[0].id)
+      } else {
+        this.addNewGame();
+        this.openNewGameLounch(name);
+      }
+    }) 
+
+  }
+
+  async addPlayerToGame(player: string, docId: string) {
+    await updateDoc(this.getDocRef("games", docId), {
+      'players': arrayUnion(player)
+    })
+   this.router.navigateByUrl('/game/'+docId)
+  }
+
+  addNewGame() {
+    this.game = new Game()
+    return this.newGame = this.game.toJSON()
+  }
+
+  async openNewGameLounch(name:string) {
+    let newDoc = await addDoc(collection(this.firestore, "games"), this.newGame)
+    await this.addPlayerToGame(name, newDoc.id)
+  }
+
+
+  async deleteDrawedCardFromCardStackFirebase(drawedCard: string, gameId: string) {
+    await updateDoc(this.getDocRef("games", gameId), {
+      'cardStack': arrayRemove(drawedCard)
     })
   }
 
-  /*     const docRef = await addDoc(collection(db, "cities"), {
-    name: "Tokyo",
-    country: "Japan"
-  }); */
-
-
-  async addPlayerToGame(player: string) {
-    await updateDoc(this.getDocRef("games", 'cJsSBX35kU51b1StZniN'), {
-      'newGame.players': arrayUnion(player)
-    }), {
-
-    }
-    await this.newGame()
-  }
-
-  async deleteDrawedCardFromCardStackFirebase(drawedCard:string){
-    await updateDoc(this.getDocRef("games", 'cJsSBX35kU51b1StZniN') , {
-      'newGame.cardStack': arrayRemove(drawedCard)
+  async addDrawedCardToDiscardPileFirebase(drawedCard: string, gameId: string) {
+    await updateDoc(this.getDocRef("games", gameId), {
+      'discardPile': arrayUnion(drawedCard)
     })
   }
 
-  async addDrawedCardToDiscardPileFirebase(drawedCard:string){
-     await updateDoc(this.getDocRef("games", 'cJsSBX35kU51b1StZniN'), {
-      'newGame.discardPile': arrayUnion(drawedCard)
-    })
-  }
-
-  async nextPlayersTurn(nextPlayer:number){
-    await updateDoc(this.getDocRef("games", 'cJsSBX35kU51b1StZniN'), {
-      'newGame.currentPlayer': nextPlayer
+  async nextPlayersTurn(nextPlayer: number, gameId: string) {
+    await updateDoc(this.getDocRef("games", gameId), {
+      'currentPlayer': nextPlayer
     })
   }
 
   /**
    * Angular method that is called after the component was initialized
-   * It starts a new Game
    */
   ngOnInit(): void {
-
-    //this.prepareGame.getGameRef().add({'HAllo': 'Welt'})
-  }
-
-
-
-  /**
-   * This Function assigns a new Game-Object to the variable game
-   */
-  async newGame() {
-    this.game = new Game()
   }
 
   // holt mir /game
@@ -81,8 +84,6 @@ export class StartGameService {
 
   // holt mir /game/player2
   getDocRef(colId: string, docId: string) {
-    console.log(doc(collection(this.firestore, colId), docId));
-
     return doc(collection(this.firestore, colId), docId)
   }
 }

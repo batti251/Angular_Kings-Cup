@@ -46,14 +46,16 @@ export class StartScreenComponent implements OnInit {
     dialogRef.afterClosed().subscribe((name: string) => {
       if (!name) {
       } else { console.log(name) 
-          this.game.addPlayerToGame(name)
-          this.startGame()
+        console.log(this.game);
+        
+        this.game.getCurrentPlayers(name);
+          this.startGame();
       }
     });
   }
 
   startGame(){
-   this.router.navigateByUrl('/game');
+   /* this.router.navigateByUrl('/game/'); */
   }
 
 }

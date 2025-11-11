@@ -1,3 +1,4 @@
+<div *ngIf="game">
 @for (item of game.players; track $index) {
 <app-player
   class="player-list"
@@ -5,6 +6,7 @@
   [name]="item"
   [ngStyle]="{ 'top.px': 80 * ($index + 1), 'right.px': 0 }"
 >
+{{item}}
 </app-player>
 }
 
@@ -43,7 +45,6 @@
 
 </div>
 
-
 <app-game-card-effect class="card-info" [card]="newCard"></app-game-card-effect>
 
-
+</div>
