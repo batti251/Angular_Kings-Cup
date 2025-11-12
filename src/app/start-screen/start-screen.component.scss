@@ -1,11 +1,43 @@
 @import "../../styles.scss";
 
 .field {
-  background-image: url("../../assets/img/background-screen.svg");
-  @include backgroundStyle($bgs: contain, $bgp: 0 0, $bgc: rgb(4, 94, 4));
-  @include sizeStyle($h: 100vh, $w: 100vw);
+  @include sizeStyle($h: calc(100dvh), $w: 100vw);
   @include dFlex();
   max-width: 100%;
+}
+
+.background {
+  background-image: url("../../assets/img/background.jpg");
+  @include backgroundStyle($bgs: inherit, $bgp: 0 0);
+  @include sizeStyle($h: 80vh, $w: 100%);
+  position: absolute;
+  bottom: 0;
+  > img {
+    @include backgroundStyle($bgs: cover, $bgp: 0 0);
+    height: 90%;
+    max-width: 100%;
+  }
+}
+
+header {
+  background-image: url("../../assets/img/background.jpg");
+  @include backgroundStyle($bgs: cover, $bgp: 0 0);
+  @include dFlex();
+  position: absolute;
+  top: 0%;
+  height: 20%;
+  width: 100%;
+}
+
+h1 {
+  font-size: 80px !important;
+  text-shadow: 0px 0px 0 rgb(243, 181, 0), 1px 1px 0 rgb(230, 168, 0),
+    2px 2px 0 rgb(218, 156, 0), 3px 3px 0 rgb(205, 143, 0),
+    4px 4px 0 rgb(193, 131, 0), 5px 5px 0 rgb(181, 119, 0),
+    6px 6px 0 rgb(168, 106, 0), 7px 7px 0 rgb(164, 104, 0),
+    11px 11px 10px rgba(0, 0, 0, 0.18), 11px 11px 1px rgba(0, 0, 0, 0.5),
+    0px 0px 10px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.2);
 }
 
 button {
@@ -18,5 +50,30 @@ button {
   &:hover {
     filter: brightness(1.25);
     cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  h1 {
+    font-size: 60px !important;
+  }
+
+  button{
+            left: 50%;
+    bottom: 0;
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+@media screen and (max-width: 500px) {
+  h1 {
+    font-size: 48px !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  h1 {
+    font-size: 36px !important;
   }
 }
