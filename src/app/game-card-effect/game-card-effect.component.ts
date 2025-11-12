@@ -3,9 +3,9 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { CardEffectsService } from '../service/card-effects.service';
 import { StartGameService } from '../service/start-game.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Firestore, collectionData, collection, docData, doc } from '@angular/fire/firestore';
-import { log } from 'node:console';
+import { ActivatedRoute } from '@angular/router';
+import { docData } from '@angular/fire/firestore';
+
 
 
 @Component({

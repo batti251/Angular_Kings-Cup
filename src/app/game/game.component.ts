@@ -1,13 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Game } from '../models/game-model';
 import { PlayerComponent } from '../player/player.component';
 import { GameCardEffectComponent } from '../game-card-effect/game-card-effect.component';
-import { CardEffectsService } from '../service/card-effects.service';
-import { Firestore, collectionData, collection, docData, doc } from '@angular/fire/firestore';
+import { docData } from '@angular/fire/firestore';
 import { StartGameService } from '../service/start-game.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { log } from 'node:console';
 
 @Component({
   selector: 'app-game',

@@ -1,11 +1,8 @@
-import { Component, Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { Injectable, inject } from '@angular/core';
 import { Firestore, collectionData, collection, doc, addDoc, updateDoc, arrayUnion, arrayRemove } from '@angular/fire/firestore';
 import { Game } from '../models/game-model';
 import { Router} from '@angular/router';
 import { take } from 'rxjs';
-import { log } from 'node:console';
 
 
 @Injectable({
@@ -40,7 +37,7 @@ export class StartGameService {
     collectionData(this.items$, { idField: 'id' }).pipe(take(1)).subscribe(game => {
     let filteredArray: any
         filteredArray = game.filter(room => {return room['players'].length < 4})
-      if (filteredArray.length >0 ) {
+      if (filteredArray.length > 0 ) {
         this.addPlayerToGame(name, filteredArray[0].id)
       } else {
         this.addNewGame();
