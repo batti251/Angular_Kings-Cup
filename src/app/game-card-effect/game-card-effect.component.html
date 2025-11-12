@@ -1,7 +1,14 @@
+<div *ngIf="game">
 @if (game.cardEffect.title) {
-    <mat-card class="card">
+  <mat-card class="card">
     <mat-card-title>{{ game.cardEffect.title }} </mat-card-title>
   <mat-card-content>{{ game.cardEffect.description}}</mat-card-content>
 </mat-card>
+} @else {
+    <mat-card class="card">
+    <mat-card-title> Start the Game!</mat-card-title>
+    <mat-card-content>Pick your first Card</mat-card-content>
+</mat-card>
 }
+</div>
 
