@@ -5,6 +5,7 @@ import { Firestore, collectionData, collection, doc, addDoc, updateDoc, arrayUni
 import { Game } from '../models/game-model';
 import { Router} from '@angular/router';
 import { take } from 'rxjs';
+import { log } from 'node:console';
 
 
 @Injectable({
@@ -19,6 +20,14 @@ export class StartGameService {
 
   constructor(private router: Router) {
     this.items$ = this.getGameRef()
+  }
+
+
+  async updateCardEffect(effectObj:{}, docId:string){
+  await updateDoc(this.getDocRef("games", docId), {
+    'cardEffect' : effectObj
+  })
+    
   }
 
  async setPickCardFlag(flag:boolean, docId:string){

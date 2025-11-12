@@ -2,7 +2,13 @@ export class Game {
     public cardStack: string[] = [];
     public discardPile: string[] = [];
     public players: string[] = [];
-    public cardEffect: number = 0;
+    public cardEffect: {
+        title: string,
+        description: string
+    } = {
+            title: '',
+            description: ''
+        };
     public drawedCard: string = '';
     public pickCard: boolean = false;
     public currentPlayer: number = 0;
@@ -12,16 +18,16 @@ export class Game {
         this.addCardStack();
     }
 
-    public toJSON(){
-       return {
-        cardStack : this.cardStack,
-        discardPile: this.discardPile,
-        players: this.players,
-        pickCard: this.pickCard,
-        cardEffect: this.cardEffect,
-        drawedCard: this.drawedCard,
-        currentPlayer: this.currentPlayer
-       } 
+    public toJSON() {
+        return {
+            cardStack: this.cardStack,
+            discardPile: this.discardPile,
+            players: this.players,
+            pickCard: this.pickCard,
+            cardEffect: this.cardEffect,
+            drawedCard: this.drawedCard,
+            currentPlayer: this.currentPlayer
+        }
     }
 
     /**

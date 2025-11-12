@@ -1,7 +1,11 @@
 import { Component, OnInit, Input, OnChanges, inject} from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
-import { log } from 'node:console';
 import { CardEffectsService } from '../service/card-effects.service';
+import { StartGameService } from '../service/start-game.service';
+import { Router, ActivatedRoute  } from '@angular/router';
+import { Firestore, collectionData, collection, docData, doc } from '@angular/fire/firestore';
+import { log } from 'node:console';
+
 
 @Component({
   selector: 'app-game-card-effect',
@@ -15,15 +19,26 @@ export class GameCardEffectComponent implements OnInit, OnChanges{
   @Input() info!: string;
 
   effects = inject(CardEffectsService)
-
+  prepareGame = inject(StartGameService);
+  gameID = ''
   title = ''
   description = ''
-  constructor(){
-  }
+  game: any
 
+
+  constructor(private route: ActivatedRoute){
+    this.route.params.subscribe((params) => {
+      this.gameID = params['id']
+      let docRef = this.prepareGame.getDocRef("games", this.gameID)
+     docData(docRef).subscribe( game => {
+          this.game = game
+          })
+        });
+      }
+    
   
   ngOnInit(): void {
-
+    this.prepareGame
   }
   
 
@@ -32,10 +47,8 @@ export class GameCardEffectComponent implements OnInit, OnChanges{
     let cardIndex = cardNumber -1
     if(cardNumber){
       let effectObj = this.effects.showCardEffect(cardIndex)
-      this.title = effectObj.title
-      this.description = effectObj.description
+      this.prepareGame.updateCardEffect(effectObj, this.gameID)
     }
-    
   }
   
 }
