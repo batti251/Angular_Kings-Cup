@@ -1,13 +1,28 @@
-.card{
-    position: absolute;
-    bottom: 16px;
-    width: 380px;
-    height: 136px;
-    background-color: whitesmoke;
-    color: black;
-    font-size: larger;
-    display: flex;
-    justify-content: center;
-    border-radius: 0.5rem;
-    padding: 8px;
+.card {
+  position: absolute;
+  bottom: 16px;
+  width: 380px;
+  height: 136px;
+  background-color: whitesmoke;
+  color: black;
+  font-size: larger;
+  display: flex;
+  justify-content: center;
+  border-radius: 0.5rem;
+  padding: 8px;
+}
+
+@media screen and (max-width: 720px) {
+  .card {
+    width: 100%;
+    bottom: 0;
+    border-radius: 0;
+  }
+}
+
+@media (max-height: 680px) {
+  .card {
+    line-height: 0.95;
+    height: 100px;
+  }
 }
