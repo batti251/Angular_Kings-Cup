@@ -45,10 +45,12 @@ export class GameComponent implements OnInit {
   drawCard() {
     if (!this.pickCard) {
       this.newCard = this.game.cardStack.pop();
+      this.game.drawedCard = this.newCard
+      this.prepareGame.updatePlayerCard(this.game.drawedCard, this.gameID)
       this.prepareGame.deleteDrawedCardFromCardStackFirebase(this.newCard!, this.gameID)
-      this.pickCard = true;
+      this.prepareGame.setPickCardFlag(true, this.gameID)
       setTimeout(() => {
-        this.pickCard = false;
+        this.prepareGame.setPickCardFlag(false, this.gameID)
         this.newCard ? this.prepareGame.addDrawedCardToDiscardPileFirebase(this.newCard, this.gameID) : this.newCard
         this.nextPlayersTurn()
       }, 1500);

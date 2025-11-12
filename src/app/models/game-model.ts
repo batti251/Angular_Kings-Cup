@@ -2,8 +2,10 @@ export class Game {
     public cardStack: string[] = [];
     public discardPile: string[] = [];
     public players: string[] = [];
+    public cardEffect: number = 0;
+    public drawedCard: string = '';
+    public pickCard: boolean = false;
     public currentPlayer: number = 0;
-    public playerCard: string[] = [];
 
 
     constructor() {
@@ -15,8 +17,10 @@ export class Game {
         cardStack : this.cardStack,
         discardPile: this.discardPile,
         players: this.players,
-        currentPlayer: this.currentPlayer,
-        playerCard: this.playerCard
+        pickCard: this.pickCard,
+        cardEffect: this.cardEffect,
+        drawedCard: this.drawedCard,
+        currentPlayer: this.currentPlayer
        } 
     }
 

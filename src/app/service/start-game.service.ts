@@ -21,6 +21,12 @@ export class StartGameService {
     this.items$ = this.getGameRef()
   }
 
+ async setPickCardFlag(flag:boolean, docId:string){
+    await updateDoc(this.getDocRef("games", docId), {
+      'pickCard': flag
+    })
+  }
+
   getCurrentPlayers(name: string) {
     collectionData(this.items$, { idField: 'id' }).pipe(take(1)).subscribe(game => {
     let filteredArray: any
@@ -40,6 +46,12 @@ export class StartGameService {
       'players': arrayUnion(player)
     })
    this.router.navigateByUrl('/game/'+docId)
+  }
+
+  async updatePlayerCard(playerCard:string, docId:string){
+    await updateDoc(this.getDocRef("games", docId), {
+      'playerCard':playerCard
+    })
   }
 
   addNewGame() {
