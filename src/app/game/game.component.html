@@ -16,21 +16,21 @@
   <div class="card-deck">
     @for (card of [1,2,3,4,5]; track $index) {
     <div [ngStyle]="{ 'right.px': $index * 2 }" class="cards">
-      <img src="/assets/img/cards/card_cover.png" alt="" />
+      <img src="assets/img/cards/card_cover.png" alt="" />
     </div>
     }
 
     <img
       (click)="drawCard()"
       class="cards"
-      src="/assets/img/cards/card_cover.png"
+      src="assets/img/cards/card_cover.png"
       alt=""
     />
 
     @for (card of game.discardPile; track card) {
     <img
       class="cards played-card"
-      src="/assets/img/cards/{{ card }}.svg"
+      src="assets/img/cards/{{ card }}.svg"
       alt=""
     />
     }
@@ -38,7 +38,7 @@
     <img
       class="cards pick-card"
       *ngIf="game.pickCard"
-      src="/assets/img/cards/{{ game.playerCard }}.svg"
+      src="assets/img/cards/{{ game.playerCard }}.svg"
       alt=""
     />
 

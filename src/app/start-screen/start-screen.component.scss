@@ -7,7 +7,7 @@
 }
 
 .background {
-  background-image: url("../../assets/img/background.jpg");
+  background-image: url("./../../assets/img/background.jpg");
   @include backgroundStyle($bgs: inherit, $bgp: 0 0);
   @include sizeStyle($h: 80vh, $w: 100%);
   position: absolute;
@@ -20,7 +20,7 @@
 }
 
 header {
-  background-image: url("../../assets/img/background.jpg");
+  background-image: url("./../../assets/img/background.jpg");
   @include backgroundStyle($bgs: cover, $bgp: 0 0);
   @include dFlex();
   position: absolute;
@@ -41,7 +41,7 @@ h1 {
 }
 
 button {
-  background-image: url("../../assets/img/button.png");
+  background-image: url("./../../assets/img/button.png");
   @include backgroundStyle();
   @include borderStyle($br: 3rem);
   @include sizeStyle($h: 100px, $w: 300px);
